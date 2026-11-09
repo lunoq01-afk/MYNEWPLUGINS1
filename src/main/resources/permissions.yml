@@ -1,0 +1,6 @@
+permissions:
+  staff: goldrushac.staff
+  sus: goldrushac.sus
+  alerts: goldrushac.alerts
+  reload: goldrushac.reload
+  bypass: goldrushac.bypass
