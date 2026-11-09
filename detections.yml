@@ -1,0 +1,515 @@
+# =====================================================================
+#  GoldRushAC - detections.yml
+#  One entry per detection. Every detection has:
+#    enabled      turn the detection on/off
+#    threshold    the violation level shown as "x/threshold" in alerts
+#    decay        seconds for 1.0 violation level to fade (0 = never fades)
+#    alert        send staff alerts for this detection
+#    debug        stream debug lines to staff who run /ac debug <player>
+#    min-flags    how many separate flags are needed before any punishment step can fire
+#    punishment   escalation steps. action = ALERT | LOG | WARN | KICK | TEMPBAN | BAN
+#                 KICK / TEMPBAN / BAN / WARN only run when punishments.auto-punish is true in
+#                 config.yml (off by default); otherwise they create a staff review request.
+#  Reload with /ac reload.
+# =====================================================================
+
+detections:
+  combat:
+    killaura:   # KillAura
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 14, action: KICK}
+          - {vl: 24, action: TEMPBAN, duration: 7d}
+    aimassist:   # AimAssist
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 8
+      punishment:
+        steps: []        # alert/log only
+    autoclicker:   # AutoClicker
+      enabled: true
+      threshold: 5
+      decay: 45
+      alert: true
+      debug: false
+      min-flags: 8
+      punishment:
+        steps: []        # alert/log only
+    reach:   # Reach
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps:
+          - {vl: 6, action: WARN}
+          - {vl: 10, action: KICK}
+          - {vl: 18, action: TEMPBAN, duration: 7d}
+    hitbox:   # Hitbox
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    criticals:   # Criticals
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    antiknockback:   # AntiKnockback
+      enabled: true
+      threshold: 4
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps:
+          - {vl: 10, action: KICK}
+          - {vl: 18, action: TEMPBAN, duration: 7d}
+    noswing:   # NoSwing
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    multiaura:   # MultiAura
+      enabled: true
+      threshold: 3
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps:
+          - {vl: 6, action: WARN}
+          - {vl: 10, action: KICK}
+          - {vl: 16, action: TEMPBAN, duration: 7d}
+    attackrate:   # AttackRate
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps: []        # alert/log only
+    targetswitch:   # TargetSwitch
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+  movement:
+    fly:   # Fly
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 22, action: TEMPBAN, duration: 7d}
+    speed:   # Speed
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 20, action: TEMPBAN, duration: 7d}
+    jesus:   # Jesus
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    spider:   # Spider
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 20, action: TEMPBAN, duration: 7d}
+    nofall:   # NoFall
+      enabled: true
+      threshold: 4
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 20, action: TEMPBAN, duration: 7d}
+    longjump:   # LongJump
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps: []        # alert/log only
+    highjump:   # HighJump
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps: []        # alert/log only
+    airjump:   # AirJump
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 20, action: TEMPBAN, duration: 7d}
+    phase:   # Phase
+      enabled: true
+      threshold: 4
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps: []        # alert/log only
+    step:   # Step
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    timer:   # Timer
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 20, action: TEMPBAN, duration: 7d}
+    badpackets:   # BadPackets
+      enabled: true
+      threshold: 2
+      decay: 120
+      alert: true
+      debug: false
+      min-flags: 2
+      punishment:
+        steps:
+          - {vl: 2, action: KICK}
+          - {vl: 4, action: TEMPBAN, duration: 7d}
+    groundspoof:   # GroundSpoof
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    acceleration:   # Acceleration
+      enabled: true
+      threshold: 6
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 8
+      punishment:
+        steps: []        # alert/log only
+  world:
+    xray:   # Xray
+      enabled: true
+      threshold: 3
+      decay: 300
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps: []        # alert/log only
+    nuker:   # Nuker
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 20, action: TEMPBAN, duration: 7d}
+    fastbreak:   # FastBreak
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    fastplace:   # FastPlace
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    scaffold:   # Scaffold
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    badplace:   # BadPlace
+      enabled: true
+      threshold: 3
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps:
+          - {vl: 10, action: KICK}
+          - {vl: 18, action: TEMPBAN, duration: 7d}
+    interactreach:   # InteractReach
+      enabled: true
+      threshold: 4
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps: []        # alert/log only
+    remotebreak:   # RemoteBreak
+      enabled: true
+      threshold: 3
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps:
+          - {vl: 8, action: WARN}
+          - {vl: 12, action: KICK}
+          - {vl: 20, action: TEMPBAN, duration: 7d}
+    chestreach:   # ContainerReach
+      enabled: true
+      threshold: 3
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps: []        # alert/log only
+    chestinteract:   # ChestInteraction
+      enabled: true
+      threshold: 4
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps: []        # alert/log only
+    baddig:   # InvalidDigging
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    protectedblock:   # ProtectedBlock
+      enabled: true
+      threshold: 1
+      decay: 300
+      alert: true
+      debug: false
+      min-flags: 2
+      punishment:
+        steps:
+          - {vl: 2, action: KICK}
+          - {vl: 3, action: TEMPBAN, duration: 7d}
+  behavior:
+    autototem:   # AutoTotem
+      enabled: true
+      threshold: 3
+      decay: 300
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps: []        # alert/log only
+    autoarmor:   # AutoArmor
+      enabled: true
+      threshold: 4
+      decay: 120
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps: []        # alert/log only
+    inventorymove:   # InventoryMove
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    fastinventory:   # FastInventory
+      enabled: true
+      threshold: 5
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 6
+      punishment:
+        steps: []        # alert/log only
+    cheststealer:   # ChestStealer
+      enabled: true
+      threshold: 4
+      decay: 90
+      alert: true
+      debug: false
+      min-flags: 5
+      punishment:
+        steps: []        # alert/log only
+    autosoup:   # AutoSoup
+      enabled: true
+      threshold: 3
+      decay: 300
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps: []        # alert/log only
+    packetspam:   # PacketSpam
+      enabled: true
+      threshold: 3
+      decay: 60
+      alert: true
+      debug: false
+      min-flags: 4
+      punishment:
+        steps: []        # alert/log only
+    bot:   # Bot
+      enabled: true
+      threshold: 3
+      decay: 300
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps: []        # alert/log only
+  freecam:
+    freecam:   # Freecam
+      enabled: true
+      threshold: 3
+      decay: 300
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps: []        # alert/log only
+  relog:
+    combatlog:   # CombatLog
+      enabled: true
+      threshold: 3
+      decay: 600
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps: []        # alert/log only
+    relogabuse:   # RelogAbuse
+      enabled: true
+      threshold: 3
+      decay: 900
+      alert: true
+      debug: false
+      min-flags: 3
+      punishment:
+        steps: []        # alert/log only
+    freezelog:   # FreezeLog
+      enabled: true
+      threshold: 1
+      decay: 1800
+      alert: true
+      debug: false
+      min-flags: 1
+      punishment:
+        steps: []        # alert/log only
+  client:
+    cheatclient:   # CheatClient
+      enabled: true
+      threshold: 1
+      decay: 0
+      alert: true
+      debug: false
+      min-flags: 1
+      punishment:
+        steps:
+          - {vl: 1, action: TEMPBAN, duration: 15d}
