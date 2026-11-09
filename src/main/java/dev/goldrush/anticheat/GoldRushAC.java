@@ -8,7 +8,6 @@ import dev.goldrush.anticheat.listener.MonitorListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,34 +16,20 @@ public final class GoldRushAC extends JavaPlugin {
     private final Map<UUID, PlayerData> players = new ConcurrentHashMap<>();
     private ConfigManager configs;
     private ViolationManager violations;
-
     @Override public void onEnable() {
         saveDefaultConfig();
         configs = new ConfigManager(this);
         configs.load();
         violations = new ViolationManager(this);
-        MonitorListener listener = new MonitorListener(this);
-        Bukkit.getPluginManager().registerEvents(listener, this);
+        Bukkit.getPluginManager().registerEvents(new MonitorListener(this), this);
         StaffCommand command = new StaffCommand(this);
-        getCommand("ac").setExecutor(command);
-        getCommand("ac").setTabCompleter(command);
-        getCommand("sus").setExecutor(command);
-        getCommand("alerts").setExecutor(command);
-        for (Player player : Bukkit.getOnlinePlayers()) data(player);
-        getLogger().info("GoldRushAC enabled. Automatic punishments are " +
-                (configs.bool("anti-cheat.punishments.auto-punish", false) ? "enabled" : "disabled") + ".");
+        getCommand("ac").setExecutor(command); getCommand("ac").setTabCompleter(command);
+        getCommand("sus").setExecutor(command); getCommand("alerts").setExecutor(command);
+        for (Player p : Bukkit.getOnlinePlayers()) data(p);
+        getLogger().info("GoldRushAC enabled; automatic punishments remain disabled.");
     }
-
-    @Override public void onDisable() {
-        players.clear();
-    }
-
-    public PlayerData data(Player player) {
-        return players.computeIfAbsent(player.getUniqueId(), id -> new PlayerData(id, player.getName()));
-    }
-    public PlayerData data(UUID id, String name) {
-        return players.computeIfAbsent(id, key -> new PlayerData(key, name));
-    }
+    @Override public void onDisable() { players.clear(); }
+    public PlayerData data(Player p) { return players.computeIfAbsent(p.getUniqueId(), id -> new PlayerData(id, p.getName())); }
     public Map<UUID, PlayerData> players() { return players; }
     public ConfigManager configs() { return configs; }
     public ViolationManager violations() { return violations; }

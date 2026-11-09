@@ -1,11 +1,8 @@
-# GoldRushAC main settings
 anti-cheat:
   enabled: true
-  # Automatic punishments are deliberately disabled until detections are tested.
   punishments:
     auto-punish: false
   alerts:
-    prefix: "&8[&6GoldRushAC&8] "
     cooldown-ms: 1500
   movement:
     teleport-exempt-ms: 1800
@@ -14,5 +11,3 @@ anti-cheat:
     max-vertical-per-tick: 0.92
   world:
     remote-block-distance: 6.0
-  staff:
-    require-permission: true

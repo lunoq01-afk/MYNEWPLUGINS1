@@ -2,7 +2,6 @@ name: GoldRushAC
 version: 1.0.0
 main: dev.goldrush.anticheat.GoldRushAC
 api-version: '1.21'
-author: GoldRush
 description: Staff-focused anti-cheat monitoring for GoldRush.
 commands:
   ac:
@@ -18,13 +17,8 @@ commands:
     usage: /alerts
     permission: goldrushac.alerts
 permissions:
-  goldrushac.staff:
-    default: op
-  goldrushac.sus:
-    default: op
-  goldrushac.alerts:
-    default: op
-  goldrushac.bypass:
-    default: false
-  goldrushac.reload:
-    default: op
+  goldrushac.staff: { default: op }
+  goldrushac.sus: { default: op }
+  goldrushac.alerts: { default: op }
+  goldrushac.bypass: { default: false }
+  goldrushac.reload: { default: op }
