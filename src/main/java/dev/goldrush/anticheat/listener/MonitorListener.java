@@ -6,11 +6,9 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 import java.util.Locale;
 
@@ -76,6 +74,37 @@ public final class MonitorListener implements Listener {
         double dist=p.getEyeLocation().distance(e.getEntity().getLocation().add(0,e.getEntity().getHeight()*.5,0));
         if(dist>4.2&&plugin.data(p).buffer("reach",true,2,.1))
             plugin.violations().flag(p,CheckType.REACH,"attack distance "+String.format(Locale.US,"%.2f",dist),.8);
-        plugin.data(p).statAdd("attacks",1);
+        PlayerData data=plugin.data(p);
+        long now=System.currentTimeMillis();
+        data.statAdd("attacks",1);
+        if(data.lastAttackMs>0) {
+            long interval=now-data.lastAttackMs;
+            if(interval>0 && interval<1000) {
+                data.attackIntervals.addLast(interval);
+                while(data.attackIntervals.size()>30) data.attackIntervals.removeFirst();
+            }
+        }
+        data.lastAttackMs=now;
+        data.attackTimes.addLast(now);
+        while(!data.attackTimes.isEmpty() && now-data.attackTimes.peekFirst()>1000) data.attackTimes.removeFirst();
+
+        // Only flag unusually fast successful hits; this is a conservative signal, not proof of automation.
+        if(data.attackTimes.size()>=plugin.configs().integer("anti-cheat.combat.max-successful-hits-per-second",19)
+                && data.buffer("attack-rate",true,2,0.1)) {
+            plugin.violations().flag(p,CheckType.ATTACKRATE,
+                    "successful hits in 1s: "+data.attackTimes.size(),0.5);
+        }
+
+        // Require a long, very regular sequence before reporting click automation.
+        if(data.attackIntervals.size()>=plugin.configs().integer("anti-cheat.combat.autoclicker-min-samples",24)) {
+            double mean=data.attackIntervals.stream().mapToLong(Long::longValue).average().orElse(0);
+            double variance=data.attackIntervals.stream().mapToDouble(v->(v-mean)*(v-mean)).average().orElse(0);
+            double deviation=Math.sqrt(variance);
+            boolean regular=mean>=35 && mean<=115 && deviation/mean<0.055;
+            if(data.buffer("autoclicker",regular,2,0.08)) {
+                plugin.violations().flag(p,CheckType.AUTOCLICKER,
+                        String.format(Locale.US,"regular hit intervals mean=%.1fms deviation=%.1fms",mean,deviation),0.7);
+            }
+        }
     }
 }
