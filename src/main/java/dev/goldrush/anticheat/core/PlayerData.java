@@ -35,6 +35,10 @@ public final class PlayerData {
     // generic buffers and statistics
     private final Map<String, Double> buffers = new HashMap<>();
     private final Map<String, Double> stats = new HashMap<>();
+    // Recent successful hits used for conservative click-rate and timing analysis.
+    public final Deque<Long> attackTimes = new ArrayDeque<>();
+    public final Deque<Long> attackIntervals = new ArrayDeque<>();
+    public long lastAttackMs;
 
     // shared state written by StateListener and the modules
     public final Deque<TeleportInfo> teleports = new ArrayDeque<>();
