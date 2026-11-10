@@ -4,6 +4,9 @@ anti-cheat:
     auto-punish: false
   alerts:
     cooldown-ms: 1500
+  combat:
+    max-successful-hits-per-second: 19
+    autoclicker-min-samples: 24
   movement:
     teleport-exempt-ms: 1800
     velocity-exempt-ms: 1200
